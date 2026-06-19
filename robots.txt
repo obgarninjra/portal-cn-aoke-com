@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://obgarninjra.github.io/portal-cn-aoke-com/sitemap.xml

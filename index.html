@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>澳客 · 资料整理与信息索引</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(145deg, #fce4b1 0%, #fbd8a5 30%, #f9cb8c 70%, #f7be73 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.2rem;
+      line-height: 1.7;
+      color: #3b2b1a;
+    }
+
+    .card {
+      max-width: 820px;
+      width: 100%;
+      background: rgba(255, 255, 245, 0.96);
+      backdrop-filter: blur(2px);
+      border-radius: 48px 24px 48px 24px;
+      padding: 2.8rem 2.5rem;
+      box-shadow: 0 20px 40px -12px rgba(100, 60, 30, 0.25),
+                  0 8px 16px -4px rgba(0, 0, 0, 0.08);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 28px 48px -16px rgba(110, 60, 20, 0.30),
+                  0 8px 20px -6px rgba(0, 0, 0, 0.06);
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: #5a3e22;
+      margin-bottom: 0.3rem;
+      border-left: 8px solid #e4a662;
+      padding-left: 1.2rem;
+      line-height: 1.2;
+    }
+
+    .subhead {
+      font-size: 1rem;
+      color: #8b6f4b;
+      margin: 0.2rem 0 2rem 1.8rem;
+      font-style: italic;
+      border-bottom: 1px solid #e9d6bc;
+      padding-bottom: 0.6rem;
+      display: inline-block;
+    }
+
+    .summary {
+      background: #fcf7ed;
+      padding: 1.5rem 1.8rem;
+      border-radius: 24px 8px 24px 8px;
+      margin-bottom: 2.2rem;
+      border: 1px solid #eddcc5;
+    }
+
+    .summary p {
+      font-size: 1.05rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .summary strong {
+      color: #7b4e2a;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+      margin: 2rem 0 2.4rem 0;
+    }
+
+    .highlight-item {
+      background: #fffcf5;
+      border-radius: 20px 8px 20px 8px;
+      padding: 1.3rem 1.2rem 1.1rem 1.2rem;
+      border: 1px solid #eedcc6;
+      transition: all 0.15s ease;
+    }
+
+    .highlight-item:hover {
+      background: #fcf3e4;
+      border-color: #dbb88e;
+      transform: translateY(-3px);
+    }
+
+    .highlight-item h3 {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #5f422a;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.01em;
+    }
+
+    .highlight-item p {
+      font-size: 0.92rem;
+      color: #5e4a33;
+    }
+
+    .usage-note {
+      background: #f5ede1;
+      border-radius: 30px 12px 30px 12px;
+      padding: 1.6rem 2rem;
+      margin: 2rem 0 2rem 0;
+    }
+
+    .usage-note h2 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #644c2e;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .usage-note ul {
+      list-style: none;
+      padding-left: 0.2rem;
+    }
+
+    .usage-note li {
+      padding: 0.3rem 0 0.3rem 1.6rem;
+      position: relative;
+      font-size: 0.98rem;
+      color: #423526;
+    }
+
+    .usage-note li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #b88046;
+      font-weight: 400;
+    }
+
+    .faq-mini {
+      background: #fcf8f1;
+      border-radius: 16px;
+      padding: 1.6rem 1.8rem;
+      margin: 2.2rem 0 2rem 0;
+      border-left: 6px solid #dba875;
+    }
+
+    .faq-mini h2 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #4e3a22;
+      margin-bottom: 1rem;
+    }
+
+    .faq-item {
+      margin-bottom: 0.9rem;
+    }
+
+    .faq-item strong {
+      display: block;
+      font-weight: 500;
+      color: #6b4b2b;
+      margin-bottom: 0.1rem;
+      font-size: 0.95rem;
+    }
+
+    .faq-item span {
+      font-size: 0.92rem;
+      color: #4d3b28;
+    }
+
+    .link-sentence {
+      background: #f0e2cf;
+      border-radius: 40px 8px 40px 8px;
+      padding: 1.2rem 2rem;
+      margin: 1.8rem 0 0.8rem 0;
+      font-size: 1.02rem;
+      text-align: center;
+      color: #3f3121;
+      border: 1px solid #dcc29e;
+    }
+
+    .link-sentence a {
+      color: #844e22;
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 2px solid #dba15b;
+      padding-bottom: 0.08rem;
+      transition: border-color 0.2s, background 0.15s;
+      border-radius: 4px 4px 0 0;
+    }
+
+    .link-sentence a:hover {
+      border-bottom-color: #b46e2e;
+      background: #f7e5cf;
+      padding: 0.05rem 0.3rem;
+      margin: -0.05rem -0.3rem;
+      border-radius: 12px;
+    }
+
+    .trust-note {
+      font-size: 0.85rem;
+      color: #7c674b;
+      text-align: right;
+      margin-top: 0.8rem;
+      opacity: 0.75;
+      border-top: 1px dashed #dcc6ab;
+      padding-top: 1rem;
+    }
+
+    @media (max-width: 540px) {
+      .card {
+        padding: 2rem 1.2rem;
+        border-radius: 32px 16px 32px 16px;
+      }
+      h1 {
+        font-size: 1.9rem;
+        padding-left: 0.8rem;
+        border-left-width: 5px;
+      }
+      .subhead {
+        margin-left: 0.9rem;
+        font-size: 0.9rem;
+      }
+      .summary {
+        padding: 1.2rem;
+      }
+      .highlight-grid {
+        grid-template-columns: 1fr;
+      }
+      .usage-note {
+        padding: 1.2rem 1.2rem;
+      }
+      .faq-mini {
+        padding: 1.2rem;
+      }
+      .link-sentence {
+        padding: 1rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>澳客 · 信息索引</h1>
+    <div class="subhead">资料整理 · 脉络化阅读 · 可回溯</div>
+
+    <!-- 摘要 -->
+    <div class="summary">
+      <p><strong>澳客</strong> 是一处面向中文使用者的资料整理与信息索引平台。它将分散的资讯片段按主题归类、交叉引证，帮助使用者从模糊的关键词走向结构化的内容脉络。不同于单一的搜索工具，这里更强调资料的留存、版本对比与来源回溯。</p>
+      <p>如果你习惯在信息判断之前先了解上下文，那么 <strong>澳客</strong> 的整理方式或许能为你节约大量筛选时间。</p>
+    </div>
+
+    <!-- 亮点网格 -->
+    <div class="highlight-grid">
+      <div class="highlight-item">
+        <h3>主题聚合</h3>
+        <p>围绕特定议题汇集多源资料，减少信息碎片带来的认知成本。</p>
+      </div>
+      <div class="highlight-item">
+        <h3>时间标注</h3>
+        <p>每条索引附有收录日期与来源层级，方便判断内容的时效性。</p>
+      </div>
+      <div class="highlight-item">
+        <h3>对比视图</h3>
+        <p>同一事件的不同表述并置呈现，差异点与共识点一目了然。</p>
+      </div>
+      <div class="highlight-item">
+        <h3>轻量检索</h3>
+        <p>基于标签与分类体系，避免过度商业排序对信息真实性的干扰。</p>
+      </div>
+    </div>
+
+    <!-- 使用建议 -->
+    <div class="usage-note">
+      <h2>使用建议</h2>
+      <ul>
+        <li>先浏览主题分类，确定兴趣领域，再深入具体索引条目。</li>
+        <li>留意每条资料的“收录时间”与“来源类型”，优先参考一手或二次验证的素材。</li>
+        <li>如果某个议题存在多条相互矛盾的索引，建议结合外部资料交叉比对。</li>
+        <li>可以将 <a href="https://portal-cn-aoke.com">澳客</a> 作为信息探索的起点，但不宜作为唯一决策依据。</li>
+      </ul>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-mini">
+      <h2>常见疑问 · 摘要</h2>
+      <div class="faq-item">
+        <strong>资料从哪儿来？</strong>
+        <span>主要来自公开的新闻报道、研究机构发布、以及经过验证的档案库。不收录匿名信源或未经核实的个人发布。</span>
+      </div>
+      <div class="faq-item">
+        <strong>索引更新频率？</strong>
+        <span>视主题热度而定，活跃议题每周更新，长期议题每月整理一次。每页顶部均标注最近检查日期。</span>
+      </div>
+      <div class="faq-item">
+        <strong>能否引用为正式参考？</strong>
+        <span>建议将本站索引作为发现原始资料的导航工具，引用时应追溯至源头文献或官方发布。</span>
+      </div>
+    </div>
+
+    <!-- 链接自然嵌入句子 -->
+    <div class="link-sentence">
+      如果你正在寻找一个中文语境下偏向资料梳理与线索追踪的信息起点，<a href="https://portal-cn-aoke.com">澳客</a> 提供了一种不同于搜索引擎的浏览路径。
+    </div>
+
+    <div class="trust-note">
+      本站仅做资料索引与整理，不构成专业建议。使用过程中请自行鉴别信息准确性。
+    </div>
+  </div>
+</body>
+</html>
